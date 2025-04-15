@@ -1,0 +1,144 @@
+4_1
+import java.io.IOException;
+import java.util.Scanner;
+
+class Main {
+  public static void main(String[] args) {
+    try {
+      Service s = new Service();
+      s.addStudent(new Student("Krzysztof", 20));
+      s.addStudent(new Student("Janusz", 40));
+
+      Scanner scanner = new Scanner(System.in);
+
+      // Dodawanie nowego studenta
+      System.out.println("Podaj dane nowego studenta (format: Imię Wiek):");
+      String input = scanner.nextLine();
+      Student newStudent = Student.Parse(input);
+      s.addStudent(newStudent);
+      
+      // Wyświetlenie wszystkich studentów
+      var students = s.getStudents();
+      for (Student current : students) {
+        System.out.println(current.ToString());
+      }
+
+      scanner.close();
+    } catch (IOException e) {
+      System.err.println("Błąd IO: " + e.getMessage());
+    } catch (Exception e) {
+      System.err.println("Wystąpił błąd: " + e.getMessage());
+    }
+  }
+}
+
+
+4_2
+class Main {
+  public static void main(String[] args) {
+    try {
+      Service s = new Service();
+      s.addStudent(new Student("Krzysztof", 20));
+      s.addStudent(new Student("Janusz", 40));
+
+      Scanner scanner = new Scanner(System.in);
+
+      while (true) {
+        System.out.println("Wybierz opcję: 1 - Dodaj studenta, 2 - Wyświetl studentów, 0 - Wyjście");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        if (choice == 0) {
+          break;
+        } else if (choice == 1) {
+          System.out.println("Podaj dane nowego studenta (format: Imię Wiek):");
+          String input = scanner.nextLine();
+          Student newStudent = Student.Parse(input);
+          s.addStudent(newStudent);
+        } else if (choice == 2) {
+          var students = s.getStudents();
+          for (Student current : students) {
+            System.out.println(current.ToString());
+          }
+        } else {
+          System.out.println("Nieprawidłowa opcja.");
+        }
+      }
+
+      scanner.close();
+    } catch (IOException e) {
+      System.err.println("Błąd IO: " + e.getMessage());
+    } catch (Exception e) {
+      System.err.println("Wystąpił błąd: " + e.getMessage());
+    }
+  }
+}
+
+
+4_3
+
+public class Student {
+
+  private String Name;
+  private int Age;
+  private String Email;
+
+  public Student(String name, int age, String email) {
+    Name = name;
+    Age = age;
+    Email = email;
+  }
+
+  public String GetName() { return Name; }
+  public int GetAge() { return Age; }
+  public String GetEmail() { return Email; }
+
+  public String ToString() {
+    return Name + " " + Age + " " + Email;
+  }
+
+  public static Student Parse(String str) {
+    String[] data = str.split(" ");
+    if (data.length != 3)
+      return new Student("Parse Error", -1, "N/A");
+    return new Student(data[0], Integer.parseInt(data[1]), data[2]);
+  }
+}
+
+class Main {
+  public static void main(String[] args) {
+    try {
+      Service s = new Service();
+      s.addStudent(new Student("Krzysztof", 20, "krzysztof@example.com"));
+      s.addStudent(new Student("Janusz", 40, "janusz@example.com"));
+
+      Scanner scanner = new Scanner(System.in);
+
+      while (true) {
+        System.out.println("Wybierz opcję: 1 - Dodaj studenta, 2 - Wyświetl studentów, 0 - Wyjście");
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        if (choice == 0) {
+          break;
+        } else if (choice == 1) {
+          System.out.println("Podaj dane nowego studenta (format: Imię Wiek Email):");
+          String input = scanner.nextLine();
+          Student newStudent = Student.Parse(input);
+          s.addStudent(newStudent);
+        } else if (choice == 2) {
+          var students = s.getStudents();
+          for (Student current : students) {
+            System.out.println(current.ToString());
+          }
+        } else {
+          System.out.println("Nieprawidłowa opcja.");
+        }
+      }
+
+      scanner.close();
+    } catch (IOException e) {
+      System.err.println("Błąd IO: " + e.getMessage());
+    } catch (Exception e) {
+      System.err.println("Wystąpił błąd: " + e.getMessage());
+    }
+  }
+}
